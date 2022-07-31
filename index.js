@@ -2,8 +2,11 @@ const bodyParser = require("body-parser");
 const express = require("express");
 const cors = require("cors");
 
+
 const db = require("./config/database");
 const routes = require("./routes/index")
+
+
 
 db.authenticate()
   .then(() => {
@@ -19,6 +22,8 @@ app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 app.use(cors("*"));
 routes(app);
+app.set('view engine', 'ejs');
+app.use(express.static('public'));
 
 const PORT = process.env.PORT || 8080;
 
